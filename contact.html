@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with TravelGo travel specialists in Chennai. Submit your vacation enquiry for custom tour itineraries, bookings, and customer support.">
+  <title>Contact Us & Enquiry | TravelGo</title>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html" class="logo">Travel<span>Go</span> ✈️</a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="destinations.html">Destinations</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+
+    <div class="nav-buttons">
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme mode">🌙</button>
+      <button class="login" onclick="openLogin()">Login</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Page Title Banner -->
+  <header class="page-banner">
+    <h1>Get In Touch With Us</h1>
+    <p>Have questions or ready to plan your next vacation? Reach out to our travel specialists in Chennai anytime.</p>
+  </header>
+
+  <!-- Contact & Enquiry Section (Two-Column Layout) -->
+  <section class="section" id="contact-section">
+    <div class="contact-layout">
+
+      <!-- Column 1: Contact Information -->
+      <div class="contact-card">
+        <h2>Contact Details</h2>
+        <p class="contact-intro">
+          We are committed to providing personalized travel assistance. Speak directly with our destination experts or visit our office.
+        </p>
+
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📧</div>
+            <div class="contact-info-text">
+              <h3>Email Us</h3>
+              <p><a href="mailto:hello@travelgo.com">hello@travelgo.com</a></p>
+              <p><a href="mailto:support@travelgo.com">support@travelgo.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <h3>Call Us</h3>
+              <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+              <p><a href="tel:+914428123456">+91 44 2812 3456</a></p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <h3>Chennai Office</h3>
+              <p>TravelGo Headquarters, Anna Salai,</p>
+              <p>Chennai, Tamil Nadu - 600002, India</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon">⏰</div>
+            <div class="contact-info-text">
+              <h3>Working Hours</h3>
+              <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
+              <p>Sunday: 10:00 AM - 4:00 PM</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-perks">
+          <ul>
+            <li>✨ Fast response within 24 hours</li>
+            <li>💼 Tailor-made packages & hotel reservations</li>
+            <li>🌍 Multilingual customer assistance</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Column 2: Enquiry Form -->
+      <div class="contact-card">
+        <h2>Send an Enquiry</h2>
+        <p class="contact-intro">Fill out the form below and our team will craft the perfect itinerary for your trip.</p>
+
+        <!-- Inline Status Message Box (No browser alert popups) -->
+        <div class="form-alert" id="contactAlert"></div>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Full Name *</label>
+              <input type="text" id="contactName" placeholder="e.g. Rahul Sharma" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactEmail">Email Address *</label>
+              <input type="email" id="contactEmail" placeholder="e.g. rahul@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactPhone">Phone Number *</label>
+              <input type="tel" id="contactPhone" placeholder="e.g. +91 98765 43210" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactDestination">Destination Dropdown *</label>
+              <select id="contactDestination" required>
+                <option value="">Select a Destination</option>
+                <option value="Paris">Paris, France 🇫🇷</option>
+                <option value="Dubai">Dubai, UAE 🇦🇪</option>
+                <option value="Bali">Bali, Indonesia 🇮🇩</option>
+                <option value="London">London, UK 🇬🇧</option>
+                <option value="Maldives">Maldives 🇲🇻</option>
+                <option value="Tokyo">Tokyo, Japan 🇯🇵</option>
+                <option value="Custom">Custom / Other Destination</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactDate">Travel Date *</label>
+              <input type="date" id="contactDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contactTravelers">Number of Travelers *</label>
+              <select id="contactTravelers" required>
+                <option value="1 Traveler">1 Traveler</option>
+                <option value="2 Travelers" selected>2 Travelers</option>
+                <option value="3 Travelers">3 Travelers</option>
+                <option value="4 Travelers">4 Travelers</option>
+                <option value="5+ Travelers">5+ Travelers</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage">Your Message / Requirements *</label>
+            <textarea id="contactMessage" placeholder="Tell us about your travel plans, budget preferences, or specific requests..." required></textarea>
+          </div>
+
+          <button class="confirm-btn" type="submit">Submit Travel Enquiry</button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- FAQ Accordion Section -->
+    <div class="faq-section">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Find quick answers to common queries regarding bookings, visas, and customization</p>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How do I book a tour package with TravelGo?</span>
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>You can browse any tour package on our Destinations page and click "Book Now". Fill in your basic details, travel dates, and number of guests. Our travel coordinator will contact you to finalize flights, hotel options, and send your itinerary confirmation.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I customize the days or activities in a package?</span>
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, absolutely! All our packages can be tailored to your preferences. You can add extra days, upgrade to 5-star villas, include private sightseeing guides, or choose specific adventure excursions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What documents and visas are required for international travel?</span>
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>You need a valid passport with at least 6 months of validity from your travel date. Depending on the destination (e.g., Bali, Dubai, Paris), our Chennai visa desk assists you with tourist visas, e-visas, or visa-on-arrival guidelines.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What is your cancellation and refund policy?</span>
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>We offer 100% free cancellation up to 14 days before departure for most packages. For cancellations made within 7-14 days, a nominal processing fee applies. Full details are provided in your personalized booking contract.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer id="footer">
+    <div class="footer-grid">
+      <div>
+        <h3>TravelGo ✈️</h3>
+        <p>Your trusted travel partner for unforgettable adventures around the world.</p>
+      </div>
+
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="destinations.html">Destinations</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="destinations.html#tours">Tour Packages</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Support</h3>
+        <ul>
+          <li><a href="contact.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Support</a></li>
+          <li><a href="#footer">Privacy Policy</a></li>
+          <li><a href="#footer">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li>📧 <a href="mailto:hello@travelgo.com">hello@travelgo.com</a></li>
+          <li>📞 <a href="tel:+919876543210">+91 98765 43210</a></li>
+          <li>📍 Chennai, India</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © 2026 TravelGo. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <div class="modal-content">
+      <span class="close" onclick="closeBooking()">&times;</span>
+      <h2 id="bookingTitle">Book Your Trip ✈️</h2>
+      <div class="form-alert" id="bookingAlert"></div>
+
+      <form onsubmit="confirmBooking(event)">
+        <div class="form-group">
+          <label for="selectedPackage">Selected Package</label>
+          <input type="text" id="selectedPackage" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingName">Full Name</label>
+          <input type="text" id="bookingName" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingEmail">Email</label>
+          <input type="email" id="bookingEmail" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingDate">Travel Date</label>
+          <input type="date" id="bookingDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingTravelers">Travelers</label>
+          <select id="bookingTravelers" required>
+            <option value="">Select travelers</option>
+            <option>1 Traveler</option>
+            <option>2 Travelers</option>
+            <option>3 Travelers</option>
+            <option>4 Travelers</option>
+            <option>5+ Travelers</option>
+          </select>
+        </div>
+
+        <button class="confirm-btn" type="submit">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login / Register Modal -->
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+
+      <!-- Modal Tabs for Sign In / Sign Up -->
+      <div class="modal-tabs">
+        <button class="tab-btn active" id="tabSignIn" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="tab-btn" id="tabSignUp" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <h2 id="loginTitle">Welcome Back ✈️</h2>
+      <div class="form-alert" id="loginAlert"></div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group" id="registerNameGroup" style="display: none;">
+          <label for="registerName">Full Name</label>
+          <input type="text" id="registerName" placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </div>
+
+        <button class="confirm-btn" id="authSubmitBtn" type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="polite">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <!-- External Script -->
+  <script src="js/script.js"></script>
+</body>
+</html>

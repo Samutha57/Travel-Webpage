@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse our top-rated international destinations and all-inclusive travel packages at TravelGo. Book your next adventure in Bali, Paris, Dubai and more.">
+  <title>Destinations & Tour Packages | TravelGo</title>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html" class="logo">Travel<span>Go</span> ✈️</a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="destinations.html" class="active">Destinations</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-buttons">
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme mode">🌙</button>
+      <button class="login" onclick="openLogin()">Login</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Page Title Banner -->
+  <header class="page-banner">
+    <h1>Explore Our Destinations & Packages</h1>
+    <p>From iconic world capitals to serene tropical getaways, uncover the best destinations and curated packages.</p>
+  </header>
+
+  <!-- All 6 Destination Cards Section with Filter Bar -->
+  <section class="section" id="all-destinations">
+    <div class="section-title">
+      <h2>Popular Destinations</h2>
+      <p>Explore the world's most beautiful places</p>
+    </div>
+
+    <!-- Live Search & Category Filter Controls -->
+    <div class="filter-wrapper">
+      <div class="search-filter-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="destinationFilterInput" placeholder="Search by destination, country, or keyword..." oninput="handleDestinationSearch(this.value)">
+      </div>
+
+      <div class="filter-pills" id="filterPills">
+        <button class="filter-pill active" data-filter="all" onclick="setCategoryFilter('all', this)">All</button>
+        <button class="filter-pill" data-filter="beach" onclick="setCategoryFilter('beach', this)">🏖️ Beaches</button>
+        <button class="filter-pill" data-filter="city" onclick="setCategoryFilter('city', this)">🌆 Cityscapes</button>
+        <button class="filter-pill" data-filter="culture" onclick="setCategoryFilter('culture', this)">🏛️ Culture</button>
+        <button class="filter-pill" data-filter="luxury" onclick="setCategoryFilter('luxury', this)">💎 Luxury</button>
+      </div>
+
+      <div class="filter-status" id="filterStatus" style="display: none;">
+        <span id="filterStatusText">Showing all results</span>
+        <span class="reset-link" onclick="resetDestinationFilters()">Reset Filters</span>
+      </div>
+    </div>
+
+    <!-- Destination Cards Grid -->
+    <div class="destinations" id="destinationsContainer">
+      <!-- Destination 1: Paris -->
+      <div class="destination filterable-card" data-category="city culture" data-tags="paris france europe eiffel tower city culture romantic" onclick="openBooking('Paris Tour')">
+        <span class="destination-tag">🏛️ Culture</span>
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80" alt="Paris, France cityscape with the Eiffel Tower">
+        <div class="destination-info">
+          <h3>Paris 🇫🇷</h3>
+          <p>France • European Classic</p>
+        </div>
+      </div>
+
+      <!-- Destination 2: Dubai -->
+      <div class="destination filterable-card" data-category="city luxury" data-tags="dubai uae emirates middle east burj khalifa desert luxury city" onclick="openBooking('Dubai Tour')">
+        <span class="destination-tag">💎 Luxury</span>
+        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=80" alt="Dubai, United Arab Emirates futuristic skyline">
+        <div class="destination-info">
+          <h3>Dubai 🇦🇪</h3>
+          <p>United Arab Emirates • Modern Marvel</p>
+        </div>
+      </div>
+
+      <!-- Destination 3: Bali -->
+      <div class="destination filterable-card" data-category="beach culture" data-tags="bali indonesia asia tropical beaches temples culture island" onclick="openBooking('Bali Tour')">
+        <span class="destination-tag">🏖️ Beach</span>
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80" alt="Bali, Indonesia tropical nature and cultural temple">
+        <div class="destination-info">
+          <h3>Bali 🇮🇩</h3>
+          <p>Indonesia • Tropical Paradise</p>
+        </div>
+      </div>
+
+      <!-- Destination 4: London -->
+      <div class="destination filterable-card" data-category="city culture" data-tags="london united kingdom uk britain big ben europe city history" onclick="openBooking('London Tour')">
+        <span class="destination-tag">🏛️ Culture</span>
+        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80" alt="London, United Kingdom landmark Big Ben and Thames river">
+        <div class="destination-info">
+          <h3>London 🇬🇧</h3>
+          <p>United Kingdom • Royal Heritage</p>
+        </div>
+      </div>
+
+      <!-- Destination 5: Maldives -->
+      <div class="destination filterable-card" data-category="beach luxury" data-tags="maldives indian ocean tropical turquoise ocean luxury beach island" onclick="openBooking('Maldives Tour')">
+        <span class="destination-tag">💎 Luxury</span>
+        <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?auto=format&fit=crop&w=900&q=80" alt="Maldives turquoise sea and luxury overwater resort bungalows">
+        <div class="destination-info">
+          <h3>Maldives 🇲🇻</h3>
+          <p>Indian Ocean • Overwater Villas</p>
+        </div>
+      </div>
+
+      <!-- Destination 6: Tokyo -->
+      <div class="destination filterable-card" data-category="city culture" data-tags="tokyo japan asia shibuya metropolis temples neon city culture" onclick="openBooking('Tokyo Tour')">
+        <span class="destination-tag">🌆 Cityscape</span>
+        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80" alt="Tokyo, Japan illuminated metropolis with Tokyo Tower">
+        <div class="destination-info">
+          <h3>Tokyo 🇯🇵</h3>
+          <p>Japan • Neon Metropolis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Travel Packages Section -->
+  <section class="section" id="tours">
+    <div class="section-title">
+      <h2>Best Travel Packages</h2>
+      <p>Curated all-inclusive holiday itineraries tailored for every traveler</p>
+    </div>
+
+    <div class="tour-grid" id="packagesContainer">
+      <!-- Tour 1: Bali Paradise -->
+      <div class="tour-card filterable-card" data-category="beach culture" data-tags="bali paradise indonesia tropical beach temple 7 days">
+        <div class="tour-image">
+          <span class="badge">20% OFF</span>
+          <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80" alt="Bali Paradise vacation package with lush scenery">
+        </div>
+        <div class="tour-content">
+          <span class="tour-tag">🏖️ Beach & Culture</span>
+          <h3>Bali Paradise</h3>
+          <div class="rating">⭐⭐⭐⭐⭐ <span style="color:#777;">4.9 (128 reviews)</span></div>
+          <div class="tour-info">
+            <span>📅 7 Days</span>
+            <span>👥 2-4 People</span>
+          </div>
+          <div class="price">₹45,999</div>
+          <button class="book-btn" onclick="openBooking('Bali Paradise')">Book Now</button>
+        </div>
+      </div>
+
+      <!-- Tour 2: Paris Experience -->
+      <div class="tour-card filterable-card" data-category="city culture" data-tags="paris experience france europe romantic city culture eiffel tower 6 days">
+        <div class="tour-image">
+          <span class="badge">POPULAR</span>
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80" alt="Paris Experience tour featuring the Eiffel Tower">
+        </div>
+        <div class="tour-content">
+          <span class="tour-tag">🏛️ Culture & City</span>
+          <h3>Paris Experience</h3>
+          <div class="rating">⭐⭐⭐⭐⭐ <span style="color:#777;">4.8 (94 reviews)</span></div>
+          <div class="tour-info">
+            <span>📅 6 Days</span>
+            <span>👥 2 People</span>
+          </div>
+          <div class="price">₹79,999</div>
+          <button class="book-btn" onclick="openBooking('Paris Experience')">Book Now</button>
+        </div>
+      </div>
+
+      <!-- Tour 3: Dubai Adventure -->
+      <div class="tour-card filterable-card" data-category="city luxury" data-tags="dubai adventure uae safari desert burj khalifa luxury city 5 days">
+        <div class="tour-image">
+          <span class="badge">BEST VALUE</span>
+          <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=80" alt="Dubai Adventure tour with skyscrapers and desert fun">
+        </div>
+        <div class="tour-content">
+          <span class="tour-tag">💎 Luxury & City</span>
+          <h3>Dubai Adventure</h3>
+          <div class="rating">⭐⭐⭐⭐⭐ <span style="color:#777;">4.9 (156 reviews)</span></div>
+          <div class="tour-info">
+            <span>📅 5 Days</span>
+            <span>👥 2-4 People</span>
+          </div>
+          <div class="price">₹39,999</div>
+          <button class="book-btn" onclick="openBooking('Dubai Adventure')">Book Now</button>
+        </div>
+      </div>
+
+      <!-- Tour 4: London Royal Explorer -->
+      <div class="tour-card filterable-card" data-category="city culture" data-tags="london royal explorer uk britain big ben buckingham palace history culture 6 days">
+        <div class="tour-image">
+          <span class="badge" style="background:#2563eb;">FEATURED</span>
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80" alt="London Royal Explorer tour with historic landmark sights">
+        </div>
+        <div class="tour-content">
+          <span class="tour-tag">🏛️ Royal Heritage</span>
+          <h3>London Royal Explorer</h3>
+          <div class="rating">⭐⭐⭐⭐⭐ <span style="color:#777;">4.9 (82 reviews)</span></div>
+          <div class="tour-info">
+            <span>📅 6 Days</span>
+            <span>👥 2-4 People</span>
+          </div>
+          <div class="price">₹64,999</div>
+          <button class="book-btn" onclick="openBooking('London Royal Explorer')">Book Now</button>
+        </div>
+      </div>
+
+      <!-- Tour 5: Maldives Luxury Escape -->
+      <div class="tour-card filterable-card" data-category="beach luxury" data-tags="maldives luxury escape ocean water villa snorkeling beach island 5 days">
+        <div class="tour-image">
+          <span class="badge" style="background:#7c3aed;">LUXURY</span>
+          <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?auto=format&fit=crop&w=900&q=80" alt="Maldives Luxury Escape overwater bungalow vacation">
+        </div>
+        <div class="tour-content">
+          <span class="tour-tag">🏖️ Beach & Luxury</span>
+          <h3>Maldives Luxury Escape</h3>
+          <div class="rating">⭐⭐⭐⭐⭐ <span style="color:#777;">5.0 (110 reviews)</span></div>
+          <div class="tour-info">
+            <span>📅 5 Days</span>
+            <span>👥 2 People</span>
+          </div>
+          <div class="price">₹89,999</div>
+          <button class="book-btn" onclick="openBooking('Maldives Luxury Escape')">Book Now</button>
+        </div>
+      </div>
+
+      <!-- Tour 6: Tokyo Neon & Temples -->
+      <div class="tour-card filterable-card" data-category="city culture" data-tags="tokyo neon temples japan shibuya mount fuji anime culture food 7 days">
+        <div class="tour-image">
+          <span class="badge" style="background:#059669;">TRENDING</span>
+          <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80" alt="Tokyo Neon & Temples cultural and futuristic holiday package">
+        </div>
+        <div class="tour-content">
+          <span class="tour-tag">🌆 City & Culture</span>
+          <h3>Tokyo Neon & Temples</h3>
+          <div class="rating">⭐⭐⭐⭐⭐ <span style="color:#777;">4.9 (98 reviews)</span></div>
+          <div class="tour-info">
+            <span>📅 7 Days</span>
+            <span>👥 2-4 People</span>
+          </div>
+          <div class="price">₹74,999</div>
+          <button class="book-btn" onclick="openBooking('Tokyo Neon & Temples')">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty Results Message -->
+    <div class="no-results-msg" id="noResultsMsg">
+      <h3>No destinations or packages matched your search</h3>
+      <p>Try adjusting your search terms or select another category filter.</p>
+      <button class="confirm-btn" style="max-width:200px; margin:0 auto;" onclick="resetDestinationFilters()">View All Packages</button>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer id="footer">
+    <div class="footer-grid">
+      <div>
+        <h3>TravelGo ✈️</h3>
+        <p>Your trusted travel partner for unforgettable adventures around the world.</p>
+      </div>
+
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="destinations.html">Destinations</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#tours">Tour Packages</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Support</h3>
+        <ul>
+          <li><a href="contact.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Support</a></li>
+          <li><a href="#footer">Privacy Policy</a></li>
+          <li><a href="#footer">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li>📧 <a href="mailto:hello@travelgo.com">hello@travelgo.com</a></li>
+          <li>📞 <a href="tel:+919876543210">+91 98765 43210</a></li>
+          <li>📍 Chennai, India</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © 2026 TravelGo. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <div class="modal-content">
+      <span class="close" onclick="closeBooking()">&times;</span>
+      <h2 id="bookingTitle">Book Your Trip ✈️</h2>
+      <div class="form-alert" id="bookingAlert"></div>
+
+      <form onsubmit="confirmBooking(event)">
+        <div class="form-group">
+          <label for="selectedPackage">Selected Package</label>
+          <input type="text" id="selectedPackage" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingName">Full Name</label>
+          <input type="text" id="bookingName" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingEmail">Email</label>
+          <input type="email" id="bookingEmail" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingDate">Travel Date</label>
+          <input type="date" id="bookingDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookingTravelers">Travelers</label>
+          <select id="bookingTravelers" required>
+            <option value="">Select travelers</option>
+            <option>1 Traveler</option>
+            <option>2 Travelers</option>
+            <option>3 Travelers</option>
+            <option>4 Travelers</option>
+            <option>5+ Travelers</option>
+          </select>
+        </div>
+
+        <button class="confirm-btn" type="submit">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login / Register Modal -->
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
+
+      <!-- Modal Tabs for Sign In / Sign Up -->
+      <div class="modal-tabs">
+        <button class="tab-btn active" id="tabSignIn" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="tab-btn" id="tabSignUp" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <h2 id="loginTitle">Welcome Back ✈️</h2>
+      <div class="form-alert" id="loginAlert"></div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group" id="registerNameGroup" style="display: none;">
+          <label for="registerName">Full Name</label>
+          <input type="text" id="registerName" placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </div>
+
+        <button class="confirm-btn" id="authSubmitBtn" type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="polite">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <!-- External Script -->
+  <script src="js/script.js"></script>
+</body>
+</html>

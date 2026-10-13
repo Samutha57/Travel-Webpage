@@ -3,633 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>TravelGo - Explore The World</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    :root {
-      --primary: #2563eb;
-      --secondary: #0ea5e9;
-      --dark: #172033;
-      --text: #374151;
-      --light: #f5f9ff;
-      --white: #ffffff;
-      --green: #16a34a;
-    }
-
-    body {
-      background: var(--light);
-      color: var(--text);
-      transition: 0.3s;
-    }
-
-    body.dark {
-      --light: #111827;
-      --white: #1f2937;
-      --dark: #f9fafb;
-      --text: #e5e7eb;
-    }
-
-    /* NAVBAR */
-
-    nav {
-      height: 75px;
-      background: var(--white);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 7%;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .logo span {
-      color: #f59e0b;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .nav-buttons {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .login {
-      border: 1px solid var(--primary);
-      background: transparent;
-      color: var(--primary);
-      padding: 9px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .theme-btn {
-      border: none;
-      background: #eef4ff;
-      padding: 9px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 17px;
-    }
-
-    /* HERO */
-
-    .hero {
-      min-height: 600px;
-      background:
-        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-        url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80");
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 30px;
-    }
-
-    .hero-content {
-      max-width: 900px;
-      color: white;
-    }
-
-    .hero-content h1 {
-      font-size: clamp(40px, 7vw, 72px);
-      margin-bottom: 15px;
-      font-weight: 800;
-    }
-
-    .hero-content p {
-      font-size: 20px;
-      margin-bottom: 35px;
-    }
-
-    .search-box {
-      background: white;
-      padding: 12px;
-      border-radius: 15px;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
-      gap: 10px;
-      color: #333;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.2);
-    }
-
-    .search-item {
-      text-align: left;
-      padding: 10px;
-    }
-
-    .search-item label {
-      display: block;
-      font-size: 12px;
-      color: #777;
-      margin-bottom: 5px;
-    }
-
-    .search-item input,
-    .search-item select {
-      width: 100%;
-      border: none;
-      outline: none;
-      font-size: 15px;
-      background: transparent;
-    }
-
-    .search-btn {
-      border: none;
-      background: var(--primary);
-      color: white;
-      padding: 0 25px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .search-btn:hover {
-      background: #1d4ed8;
-    }
-
-    /* SECTION */
-
-    .section {
-      padding: 80px 7%;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-
-    .section-title h2 {
-      font-size: 38px;
-      color: var(--dark);
-      margin-bottom: 10px;
-    }
-
-    .section-title p {
-      color: #6b7280;
-    }
-
-    /* DESTINATIONS */
-
-    .destinations {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .destination {
-      height: 300px;
-      border-radius: 18px;
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .destination img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.5s;
-    }
-
-    .destination:hover img {
-      transform: scale(1.08);
-    }
-
-    .destination-info {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 25px;
-      color: white;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    }
-
-    .destination-info h3 {
-      font-size: 25px;
-    }
-
-    .destination-info p {
-      margin-top: 5px;
-    }
-
-    /* TOURS */
-
-    .tour-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .tour-card {
-      background: var(--white);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      transition: 0.3s;
-    }
-
-    .tour-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .tour-image {
-      position: relative;
-      height: 220px;
-    }
-
-    .tour-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .badge {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: #ef4444;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .tour-content {
-      padding: 20px;
-    }
-
-    .tour-content h3 {
-      color: var(--dark);
-      font-size: 21px;
-      margin-bottom: 10px;
-    }
-
-    .rating {
-      color: #f59e0b;
-      margin-bottom: 12px;
-    }
-
-    .tour-info {
-      display: flex;
-      justify-content: space-between;
-      color: #6b7280;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .price {
-      color: var(--primary);
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .book-btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      background: var(--primary);
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    .book-btn:hover {
-      background: #1d4ed8;
-    }
-
-    /* OFFER */
-
-    .offer {
-      margin: 20px 7% 80px;
-      min-height: 280px;
-      border-radius: 20px;
-      padding: 50px;
-      color: white;
-      display: flex;
-      align-items: center;
-      background:
-        linear-gradient(90deg, rgba(37,99,235,0.95), rgba(14,165,233,0.65)),
-        url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80")
-        center/cover;
-    }
-
-    .offer-content {
-      max-width: 600px;
-    }
-
-    .offer h2 {
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
-
-    .offer p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .offer button {
-      padding: 12px 25px;
-      border: none;
-      border-radius: 8px;
-      background: white;
-      color: var(--primary);
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* FEATURES */
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .feature {
-      background: var(--white);
-      padding: 30px 20px;
-      text-align: center;
-      border-radius: 15px;
-    }
-
-    .feature-icon {
-      font-size: 40px;
-      margin-bottom: 15px;
-    }
-
-    .feature h3 {
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      background: #111827;
-      color: white;
-      padding: 60px 7% 25px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-
-    footer h3 {
-      margin-bottom: 18px;
-    }
-
-    footer p {
-      color: #cbd5e1;
-      line-height: 1.7;
-    }
-
-    footer ul {
-      list-style: none;
-    }
-
-    footer li {
-      margin-bottom: 10px;
-      color: #cbd5e1;
-    }
-
-    .copyright {
-      border-top: 1px solid #374151;
-      padding-top: 20px;
-      text-align: center;
-      color: #9ca3af;
-    }
-
-    /* MODAL */
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: var(--white);
-      width: 100%;
-      max-width: 500px;
-      border-radius: 15px;
-      padding: 30px;
-      position: relative;
-    }
-
-    .modal-content h2 {
-      color: var(--dark);
-      margin-bottom: 20px;
-    }
-
-    .close {
-      position: absolute;
-      right: 20px;
-      top: 15px;
-      font-size: 25px;
-      cursor: pointer;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      outline: none;
-    }
-
-    .confirm-btn {
-      width: 100%;
-      padding: 13px;
-      background: var(--green);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 900px) {
-      .nav-links {
-        display: none;
-      }
-
-      .search-box {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .search-btn {
-        padding: 15px;
-      }
-
-      .destinations,
-      .tour-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .features {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      nav {
-        padding: 0 5%;
-      }
-
-      .hero {
-        min-height: 700px;
-      }
-
-      .search-box {
-        grid-template-columns: 1fr;
-      }
-
-      .search-btn {
-        padding: 14px;
-      }
-
-      .destinations,
-      .tour-grid,
-      .features,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section {
-        padding: 60px 5%;
-      }
-
-      .offer {
-        margin: 0 5% 60px;
-        padding: 35px 25px;
-      }
-
-      .offer h2 {
-        font-size: 30px;
-      }
-    }
-  </style>
+  <meta name="description" content="Discover amazing travel destinations and holiday packages with TravelGo. Plan your dream trip with best price guarantees and 24/7 support.">
+  <title>TravelGo - Explore The World | Home</title>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
-
+  <!-- Navigation Bar -->
   <nav>
-    <div class="logo">Travel<span>Go</span> ✈️</div>
+    <a href="index.html" class="logo">Travel<span>Go</span> ✈️</a>
 
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#destinations">Destinations</a></li>
-      <li><a href="#tours">Tours</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="destinations.html">Destinations</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
 
     <div class="nav-buttons">
-      <button class="theme-btn" onclick="toggleTheme()">🌙</button>
-      <button class="login" onclick="openBooking('Login')">Login</button>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme mode">🌙</button>
+      <button class="login" onclick="openLogin()">Login</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">☰</button>
     </div>
   </nav>
 
-
-  <!-- HERO -->
-
-  <section class="hero" id="home">
+  <!-- Hero Section -->
+  <header class="hero" id="home">
     <div class="hero-content">
-
       <h1>Explore The World</h1>
+      <p>Discover amazing destinations and create unforgettable memories.</p>
 
-      <p>
-        Discover amazing destinations and create unforgettable memories.
-      </p>
-
+      <!-- Search Component -->
       <div class="search-box">
-
         <div class="search-item">
-          <label>📍 DESTINATION</label>
+          <label for="destination">📍 DESTINATION</label>
           <input type="text" id="destination" placeholder="Where do you want to go?">
         </div>
 
         <div class="search-item">
-          <label>📅 CHECK IN</label>
-          <input type="date">
+          <label for="checkin">📅 CHECK IN</label>
+          <input type="date" id="checkin">
         </div>
 
         <div class="search-item">
-          <label>📅 CHECK OUT</label>
-          <input type="date">
+          <label for="checkout">📅 CHECK OUT</label>
+          <input type="date" id="checkout">
         </div>
 
         <div class="search-item">
-          <label>👥 TRAVELERS</label>
-          <select>
+          <label for="travelers">👥 TRAVELERS</label>
+          <select id="travelers">
             <option>1 Guest</option>
             <option>2 Guests</option>
             <option>3 Guests</option>
@@ -637,351 +61,234 @@
           </select>
         </div>
 
-        <button class="search-btn" onclick="searchTravel()">
-          Search
-        </button>
+        <button class="search-btn" id="searchBtn" onclick="searchTravel()">Search</button>
 
+        <div class="search-feedback" id="searchFeedback"></div>
       </div>
-
     </div>
-  </section>
+  </header>
 
-
-  <!-- DESTINATIONS -->
-
-  <section class="section" id="destinations">
-
+  <!-- Popular Destinations Section (First 3 Cards) -->
+  <section class="section" id="popular-destinations">
     <div class="section-title">
       <h2>Popular Destinations</h2>
       <p>Explore the world's most beautiful places</p>
     </div>
 
     <div class="destinations">
-
-      <div class="destination">
-        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80">
+      <!-- Destination 1: Paris -->
+      <div class="destination" onclick="openBooking('Paris Tour')">
+        <span class="destination-tag">🏛️ Culture</span>
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80" alt="Paris, France cityscape with the Eiffel Tower">
         <div class="destination-info">
           <h3>Paris 🇫🇷</h3>
-          <p>France</p>
+          <p>France • European Classic</p>
         </div>
       </div>
 
-      <div class="destination">
-        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=80">
+      <!-- Destination 2: Dubai -->
+      <div class="destination" onclick="openBooking('Dubai Tour')">
+        <span class="destination-tag">💎 Luxury</span>
+        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=80" alt="Dubai, United Arab Emirates futuristic skyline">
         <div class="destination-info">
           <h3>Dubai 🇦🇪</h3>
-          <p>United Arab Emirates</p>
+          <p>United Arab Emirates • Modern Marvel</p>
         </div>
       </div>
 
-      <div class="destination">
-        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80">
+      <!-- Destination 3: Bali -->
+      <div class="destination" onclick="openBooking('Bali Tour')">
+        <span class="destination-tag">🏖️ Beach</span>
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80" alt="Bali, Indonesia tropical nature and cultural temple">
         <div class="destination-info">
           <h3>Bali 🇮🇩</h3>
-          <p>Indonesia</p>
+          <p>Indonesia • Tropical Paradise</p>
         </div>
       </div>
+    </div>
 
-      <div class="destination">
-        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80">
-        <div class="destination-info">
-          <h3>London 🇬🇧</h3>
-          <p>United Kingdom</p>
-        </div>
-      </div>
-
-      <div class="destination">
-        <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?auto=format&fit=crop&w=900&q=80">
-        <div class="destination-info">
-          <h3>Maldives 🇲🇻</h3>
-          <p>Indian Ocean</p>
-        </div>
-      </div>
-
-      <div class="destination">
-        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80">
-        <div class="destination-info">
-          <h3>Tokyo 🇯🇵</h3>
-          <p>Japan</p>
-        </div>
-      </div>
-
+    <!-- View All Destinations Button -->
+    <div class="view-all-container">
+      <a href="destinations.html" class="view-all-btn">View All 6 Destinations & Packages →</a>
     </div>
   </section>
 
-
-  <!-- TOURS -->
-
-  <section class="section" id="tours">
-
-    <div class="section-title">
-      <h2>Best Travel Packages</h2>
-      <p>Choose your perfect holiday package</p>
-    </div>
-
-    <div class="tour-grid">
-
-      <div class="tour-card">
-
-        <div class="tour-image">
-          <span class="badge">20% OFF</span>
-
-          <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80">
-        </div>
-
-        <div class="tour-content">
-          <h3>Bali Paradise</h3>
-
-          <div class="rating">
-            ⭐⭐⭐⭐⭐ <span style="color:#777;">4.9</span>
-          </div>
-
-          <div class="tour-info">
-            <span>📅 7 Days</span>
-            <span>👥 2-4 People</span>
-          </div>
-
-          <div class="price">₹45,999</div>
-
-          <button class="book-btn" onclick="openBooking('Bali Paradise')">
-            Book Now
-          </button>
-        </div>
-
-      </div>
-
-
-      <div class="tour-card">
-
-        <div class="tour-image">
-          <span class="badge">POPULAR</span>
-
-          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80">
-        </div>
-
-        <div class="tour-content">
-          <h3>Paris Experience</h3>
-
-          <div class="rating">
-            ⭐⭐⭐⭐⭐ <span style="color:#777;">4.8</span>
-          </div>
-
-          <div class="tour-info">
-            <span>📅 6 Days</span>
-            <span>👥 2 People</span>
-          </div>
-
-          <div class="price">₹79,999</div>
-
-          <button class="book-btn" onclick="openBooking('Paris Experience')">
-            Book Now
-          </button>
-        </div>
-
-      </div>
-
-
-      <div class="tour-card">
-
-        <div class="tour-image">
-          <span class="badge">BEST VALUE</span>
-
-          <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=80">
-        </div>
-
-        <div class="tour-content">
-          <h3>Dubai Adventure</h3>
-
-          <div class="rating">
-            ⭐⭐⭐⭐⭐ <span style="color:#777;">4.9</span>
-          </div>
-
-          <div class="tour-info">
-            <span>📅 5 Days</span>
-            <span>👥 2-4 People</span>
-          </div>
-
-          <div class="price">₹39,999</div>
-
-          <button class="book-btn" onclick="openBooking('Dubai Adventure')">
-            Book Now
-          </button>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- OFFER -->
-
+  <!-- Special Offer Banner -->
   <section class="offer">
-
     <div class="offer-content">
-
       <h2>Get 25% Off Your First Trip!</h2>
-
-      <p>
-        Sign up today and receive an exclusive discount on your first booking.
-      </p>
-
-      <button onclick="openBooking('Special Offer')">
-        Claim Offer
-      </button>
-
+      <p>Sign up today and receive an exclusive discount on your first booking with TravelGo.</p>
+      <button onclick="openBooking('Special 25% Off Welcome Offer')">Claim Offer</button>
     </div>
-
   </section>
 
-
-  <!-- FEATURES -->
-
+  <!-- Why Choose TravelGo? Section -->
   <section class="section" id="about">
-
     <div class="section-title">
       <h2>Why Choose TravelGo?</h2>
-      <p>We make your journey simple and memorable</p>
+      <p>We make your journey simple, memorable, and stress-free</p>
     </div>
 
     <div class="features">
-
       <div class="feature">
         <div class="feature-icon">🛡️</div>
         <h3>Safe & Secure</h3>
-        <p>Your booking information is protected.</p>
+        <p>100% verified hotels, licensed tour operators, and secure transactions.</p>
       </div>
 
       <div class="feature">
         <div class="feature-icon">💰</div>
-        <h3>Best Prices</h3>
-        <p>Find amazing trips at affordable prices.</p>
+        <h3>Best Price Guarantee</h3>
+        <p>Affordable transparent pricing with no hidden charges or fees.</p>
       </div>
 
       <div class="feature">
         <div class="feature-icon">🌎</div>
-        <h3>500+ Destinations</h3>
-        <p>Explore beautiful places around the world.</p>
+        <h3>500+ Curated Tours</h3>
+        <p>Handcrafted itineraries covering world capitals and hidden gems.</p>
       </div>
 
       <div class="feature">
         <div class="feature-icon">📞</div>
-        <h3>24/7 Support</h3>
-        <p>We're always here when you need us.</p>
+        <h3>24/7 Travel Assistance</h3>
+        <p>Our dedicated travel specialists in Chennai are always here for you.</p>
       </div>
-
     </div>
-
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="section" id="testimonials">
+    <div class="section-title">
+      <h2>What Our Travelers Say</h2>
+      <p>Real stories and experiences from happy travelers worldwide</p>
+    </div>
 
-  <!-- FOOTER -->
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-quote">"The Bali package arranged by TravelGo was beyond exceptional. The private villa, seamless airport pickups, and local temple guides made it truly unforgettable!"</p>
+        <div class="testimonial-author">
+          <img class="author-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Ananya S.">
+          <div class="author-info">
+            <h4>Ananya Sharma</h4>
+            <p>Visited Bali • Oct 2026</p>
+          </div>
+        </div>
+      </div>
 
-  <footer id="contact">
+      <div class="testimonial-card">
+        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-quote">"TravelGo planned our Paris honeymoon seamlessly. From skipping the Eiffel Tower queues to romantic Seine river cruises, every minute was pure magic!"</p>
+        <div class="testimonial-author">
+          <img class="author-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Vikram M.">
+          <div class="author-info">
+            <h4>Vikram Malhotra</h4>
+            <p>Visited Paris • Sep 2026</p>
+          </div>
+        </div>
+      </div>
 
+      <div class="testimonial-card">
+        <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-quote">"Dubai Adventure was top notch! The desert safari, dune bashing, and luxury hotel stay were worth every rupee. Super responsive support team!"</p>
+        <div class="testimonial-author">
+          <img class="author-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Priya K.">
+          <div class="author-info">
+            <h4>Priya &amp; Rohan K.</h4>
+            <p>Visited Dubai • Aug 2026</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-card">
+      <h2>Unlock Secret Travel Deals ✈️</h2>
+      <p>Subscribe to our newsletter and receive up to 25% discount codes, secret flash sales, and expert travel guides.</p>
+      <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+        <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+        <button type="submit">Subscribe Now</button>
+      </form>
+      <div class="newsletter-feedback" id="newsletterFeedback"></div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer id="footer">
     <div class="footer-grid">
-
       <div>
         <h3>TravelGo ✈️</h3>
-        <p>
-          Your trusted travel partner for unforgettable adventures
-          around the world.
-        </p>
+        <p>Your trusted travel partner for unforgettable adventures around the world.</p>
       </div>
 
       <div>
-        <h3>Company</h3>
+        <h3>Quick Links</h3>
         <ul>
-          <li>About Us</li>
-          <li>Our Team</li>
-          <li>Careers</li>
-          <li>Blog</li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="destinations.html">Destinations</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="destinations.html#tours">Tour Packages</a></li>
         </ul>
       </div>
 
       <div>
         <h3>Support</h3>
         <ul>
-          <li>Help Center</li>
-          <li>Contact Us</li>
-          <li>Privacy Policy</li>
-          <li>Terms</li>
+          <li><a href="contact.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Support</a></li>
+          <li><a href="#footer">Privacy Policy</a></li>
+          <li><a href="#footer">Terms & Conditions</a></li>
         </ul>
       </div>
 
       <div>
         <h3>Contact</h3>
         <ul>
-          <li>📧 hello@travelgo.com</li>
-          <li>📞 +91 98765 43210</li>
+          <li>📧 <a href="mailto:hello@travelgo.com">hello@travelgo.com</a></li>
+          <li>📞 <a href="tel:+919876543210">+91 98765 43210</a></li>
           <li>📍 Chennai, India</li>
         </ul>
       </div>
-
     </div>
 
     <div class="copyright">
       © 2026 TravelGo. All Rights Reserved.
     </div>
-
   </footer>
 
-
-  <!-- BOOKING MODAL -->
-
-  <div class="modal" id="bookingModal">
-
+  <!-- Booking Modal -->
+  <div class="modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
     <div class="modal-content">
-
       <span class="close" onclick="closeBooking()">&times;</span>
-
-      <h2>Book Your Trip ✈️</h2>
+      <h2 id="bookingTitle">Book Your Trip ✈️</h2>
+      <div class="form-alert" id="bookingAlert"></div>
 
       <form onsubmit="confirmBooking(event)">
-
         <div class="form-group">
-          <label>Selected Package</label>
-
-          <input
-            type="text"
-            id="selectedPackage"
-            readonly
-          >
+          <label for="selectedPackage">Selected Package</label>
+          <input type="text" id="selectedPackage" readonly>
         </div>
 
         <div class="form-group">
-          <label>Full Name</label>
-
-          <input
-            type="text"
-            placeholder="Enter your name"
-            required
-          >
+          <label for="bookingName">Full Name</label>
+          <input type="text" id="bookingName" placeholder="Enter your name" required>
         </div>
 
         <div class="form-group">
-          <label>Email</label>
-
-          <input
-            type="email"
-            placeholder="Enter your email"
-            required
-          >
+          <label for="bookingEmail">Email</label>
+          <input type="email" id="bookingEmail" placeholder="Enter your email" required>
         </div>
 
         <div class="form-group">
-          <label>Travel Date</label>
-
-          <input
-            type="date"
-            required
-          >
+          <label for="bookingDate">Travel Date</label>
+          <input type="date" id="bookingDate" required>
         </div>
 
         <div class="form-group">
-          <label>Travelers</label>
-
-          <select required>
+          <label for="bookingTravelers">Travelers</label>
+          <select id="bookingTravelers" required>
             <option value="">Select travelers</option>
             <option>1 Traveler</option>
             <option>2 Travelers</option>
@@ -991,96 +298,53 @@
           </select>
         </div>
 
-        <button class="confirm-btn" type="submit">
-          Confirm Booking
-        </button>
-
+        <button class="confirm-btn" type="submit">Confirm Booking</button>
       </form>
-
     </div>
-
   </div>
 
+  <!-- Login / Register Modal -->
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="modal-content">
+      <span class="close" onclick="closeLogin()">&times;</span>
 
-  <script>
+      <!-- Modal Tabs for Sign In / Sign Up -->
+      <div class="modal-tabs">
+        <button class="tab-btn active" id="tabSignIn" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="tab-btn" id="tabSignUp" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
 
-    // DARK MODE
+      <h2 id="loginTitle">Welcome Back ✈️</h2>
+      <div class="form-alert" id="loginAlert"></div>
 
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-    }
+      <form id="authForm" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group" id="registerNameGroup" style="display: none;">
+          <label for="registerName">Full Name</label>
+          <input type="text" id="registerName" placeholder="Enter your full name">
+        </div>
 
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="Enter your email" required>
+        </div>
 
-    // SEARCH
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </div>
 
-    function searchTravel() {
+        <button class="confirm-btn" id="authSubmitBtn" type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
 
-      const destination =
-        document.getElementById("destination").value.trim();
+  <!-- Toast Notification Container -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="polite">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Action completed</span>
+  </div>
 
-      if (destination === "") {
-        alert("Please enter a destination.");
-        return;
-      }
-
-      alert(
-        "Searching for trips to " +
-        destination +
-        " 🌎"
-      );
-    }
-
-
-    // OPEN BOOKING
-
-    function openBooking(packageName) {
-
-      document.getElementById("selectedPackage").value =
-        packageName;
-
-      document.getElementById("bookingModal")
-        .classList.add("active");
-    }
-
-
-    // CLOSE BOOKING
-
-    function closeBooking() {
-
-      document.getElementById("bookingModal")
-        .classList.remove("active");
-    }
-
-
-    // CONFIRM BOOKING
-
-    function confirmBooking(event) {
-
-      event.preventDefault();
-
-      alert(
-        "🎉 Booking request submitted successfully!\n\n" +
-        "Our travel team will contact you shortly."
-      );
-
-      closeBooking();
-    }
-
-
-    // CLOSE MODAL WHEN CLICKING OUTSIDE
-
-    window.onclick = function(event) {
-
-      const modal =
-        document.getElementById("bookingModal");
-
-      if (event.target === modal) {
-        closeBooking();
-      }
-
-    };
-
-  </script>
-
+  <!-- External Script -->
+  <script src="js/script.js"></script>
 </body>
 </html>
