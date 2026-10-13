@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileNavigation();
   initDatePickers();
   initUserSession();
+  initBookings();
   initModals();
   initHeroSearch();
   initDestinationFilters();
@@ -395,6 +396,7 @@ function initModals() {
   window.addEventListener("click", (event) => {
     const bookingModal = document.getElementById("bookingModal");
     const loginModal = document.getElementById("loginModal");
+    const myBookingsModal = document.getElementById("myBookingsModal");
 
     if (bookingModal && event.target === bookingModal) {
       closeBooking();
@@ -402,14 +404,121 @@ function initModals() {
     if (loginModal && event.target === loginModal) {
       closeLogin();
     }
+    if (myBookingsModal && event.target === myBookingsModal) {
+      closeMyBookings();
+    }
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeBooking();
       closeLogin();
+      closeMyBookings();
     }
   });
+}
+
+/* ==========================================================================
+   Bookings Storage & Management (View Booked Packages)
+   ========================================================================== */
+
+function getBookings() {
+  try {
+    const data = localStorage.getItem("travelgo_bookings");
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveBookings(bookings) {
+  try {
+    localStorage.setItem("travelgo_bookings", JSON.stringify(bookings));
+    updateBookingsBadge();
+  } catch (e) {
+    console.error("Error saving bookings", e);
+  }
+}
+
+function updateBookingsBadge() {
+  const badge = document.getElementById("bookingCountBadge");
+  if (badge) {
+    const bookings = getBookings();
+    badge.textContent = bookings.length;
+  }
+}
+
+function initBookings() {
+  updateBookingsBadge();
+}
+
+function openMyBookings() {
+  const modal = document.getElementById("myBookingsModal");
+  if (!modal) return;
+  renderBookings();
+  modal.classList.add("active");
+}
+
+function closeMyBookings() {
+  const modal = document.getElementById("myBookingsModal");
+  if (modal) {
+    modal.classList.remove("active");
+  }
+}
+
+function renderBookings() {
+  const container = document.getElementById("bookingsListContainer");
+  if (!container) return;
+
+  const bookings = getBookings();
+
+  if (bookings.length === 0) {
+    container.innerHTML = `
+      <div class="empty-bookings-box">
+        <div style="font-size: 42px; margin-bottom: 12px;">🧳</div>
+        <h3>No Trips Booked Yet</h3>
+        <p>You haven't reserved any travel packages yet. Explore our curated destinations and holiday packages to book your next getaway!</p>
+        <button class="confirm-btn" style="max-width: 220px; margin: 0 auto;" onclick="window.location.href='destinations.html'">Explore Packages</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = bookings.map((b) => `
+    <div class="booking-card" id="booking-${b.id}">
+      <div class="booking-card-header">
+        <div>
+          <h3>${escapeHtml(b.packageName)}</h3>
+          <span class="booking-ref-tag">Booking Ref: #${escapeHtml(b.id)}</span>
+        </div>
+        <span class="booking-status">🟢 ${escapeHtml(b.status || "Confirmed")}</span>
+      </div>
+
+      <div class="booking-details-grid">
+        <div><strong>👤 Traveler:</strong> <span>${escapeHtml(b.customerName)}</span></div>
+        <div><strong>📧 Email:</strong> <span>${escapeHtml(b.customerEmail)}</span></div>
+        <div><strong>📅 Travel Date:</strong> <span>${escapeHtml(b.travelDate || "Flexible")}</span></div>
+        <div><strong>👥 Group Size:</strong> <span>${escapeHtml(b.travelers || "1 Traveler")}</span></div>
+      </div>
+
+      <div class="booking-card-footer">
+        <span>Booked on: ${escapeHtml(b.bookedAt || "Recently")}</span>
+        <button class="cancel-booking-btn" onclick="cancelBooking('${escapeHtml(b.id)}')">Cancel Booking</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function cancelBooking(bookingId) {
+  if (!confirm("Are you sure you want to cancel this booking request?")) {
+    return;
+  }
+
+  let bookings = getBookings();
+  bookings = bookings.filter((b) => b.id !== bookingId);
+  saveBookings(bookings);
+  renderBookings();
+  showToast(`Booking #${bookingId} was cancelled`, "info", "🗑️");
 }
 
 function openBooking(packageName) {
@@ -449,18 +558,37 @@ function confirmBooking(event) {
   const alertBox = document.getElementById("bookingAlert");
   const form = event.target;
   const packageInput = document.getElementById("selectedPackage");
-  const pkgName = packageInput ? packageInput.value : "Trip";
+  const pkgName = packageInput && packageInput.value ? packageInput.value : "General Package";
+  const nameInput = document.getElementById("bookingName");
+  const emailInput = document.getElementById("bookingEmail");
+  const dateInput = document.getElementById("bookingDate");
+  const travelersInput = document.getElementById("bookingTravelers");
 
   const bookingRef = "TRV-" + Math.floor(10000 + Math.random() * 90000);
 
+  const newBooking = {
+    id: bookingRef,
+    packageName: pkgName,
+    customerName: nameInput ? nameInput.value.trim() : "Traveler",
+    customerEmail: emailInput ? emailInput.value.trim() : "",
+    travelDate: dateInput ? dateInput.value : "",
+    travelers: travelersInput ? travelersInput.value : "1 Traveler",
+    bookedAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    status: "Confirmed"
+  };
+
+  const bookings = getBookings();
+  bookings.unshift(newBooking);
+  saveBookings(bookings);
+
   if (alertBox) {
     alertBox.className = "form-alert success";
-    alertBox.innerHTML = `🎉 <strong>Booking Request Confirmed!</strong><br>Reference ID: <strong>#${bookingRef}</strong> for <em>${escapeHtml(pkgName)}</em>. Our travel team will contact you within 24 hours.`;
+    alertBox.innerHTML = `🎉 <strong>Booking Request Confirmed!</strong><br>Reference ID: <strong>#${bookingRef}</strong> for <em>${escapeHtml(pkgName)}</em>.<br><small style="display:block; margin-top:4px;">View your reservation anytime under <strong>📋 Trips</strong> in the header.</small>`;
     alertBox.style.display = "block";
     form.reset();
   }
 
-  showToast(`Booking #${bookingRef} confirmed!`, "success", "🎉");
+  showToast(`Booking #${bookingRef} confirmed! Click '📋 Trips' to view.`, "success", "🎉");
 
   setTimeout(() => {
     closeBooking();

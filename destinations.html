@@ -23,6 +23,7 @@
 
     <div class="nav-buttons">
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme mode">🌙</button>
+      <button class="bookings-btn" id="myBookingsBtn" onclick="openMyBookings()" aria-label="View My Bookings">📋 Trips <span class="booking-badge" id="bookingCountBadge">0</span></button>
       <button class="login" onclick="openLogin()">Login</button>
       <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">☰</button>
     </div>
@@ -377,6 +378,15 @@
 
         <button class="confirm-btn" id="authSubmitBtn" type="submit">Sign In</button>
       </form>
+    </div>
+  </div>
+
+  <!-- My Bookings Modal -->
+  <div class="modal" id="myBookingsModal" role="dialog" aria-modal="true" aria-labelledby="myBookingsTitle">
+    <div class="modal-content bookings-modal-content">
+      <span class="close" onclick="closeMyBookings()">&times;</span>
+      <h2 id="myBookingsTitle">My Booked Trips 🧳</h2>
+      <div id="bookingsListContainer" class="bookings-list-container"></div>
     </div>
   </div>
 

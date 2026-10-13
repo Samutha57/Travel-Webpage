@@ -36,7 +36,13 @@ TravelGo enables users to discover international destinations, browse curated to
 - Generates a unique booking reference code (e.g., `#TRV-58392`) upon submission.
 - Accessible from any page across the entire website.
 
-### 6. 👤 User Authentication & Session Persistence
+### 6. 🧳 My Booked Trips (View & Manage Reservations)
+- Accessible anytime via the **📋 Trips** button in the top navigation header.
+- Displays live badge count of all active reservations.
+- Details each booked trip with **Booking Reference ID**, package name, customer details, travel date, number of travelers, and booking timestamp.
+- Allows 1-click booking cancellation with instant `localStorage` synchronization.
+
+### 7. 👤 User Authentication & Session Persistence
 - Modal tab switcher to toggle between **Sign In** and **Create Account**.
 - Simulates user login and persists user profile state in `localStorage`.
 - Updates navigation bar dynamically to display `👋 Hi, [Name] | Logout`.
